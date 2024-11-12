@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'nicovideo.cdn.nimg.jp',
+        port: '',
+        pathname: '/thumbnails/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
