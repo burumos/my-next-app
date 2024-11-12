@@ -2,11 +2,17 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export default function Search() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { push } = useRouter();
+  const [form, setForm] = useState({
+    q: "",
+    limit: "",
+    minimumViews: "",
+  });
 
   const action = (formData: FormData) => {
     const urlSearchParams = new URLSearchParams();
@@ -17,6 +23,24 @@ export default function Search() {
     push(`${pathname}?${urlSearchParams.toString()}`);
   };
 
+  useEffect(() => {
+    setForm({
+      q: searchParams.get("q") || "",
+      limit: searchParams.get("limit") || "10",
+      minimumViews: searchParams.get("minimumViews") || "",
+    });
+  }, [searchParams]);
+
+  const changeHandler = (
+    name: string,
+    element: ChangeEvent<HTMLInputElement>
+  ) => {
+    setForm({
+      ...form,
+      [name]: element.target.value,
+    });
+  };
+
   return (
     <form action={action}>
       <div className="grid grid-cols-1 gap-4">
@@ -25,7 +49,8 @@ export default function Search() {
           <input
             className="inline-block border-2 w-auto"
             name="q"
-            defaultValue={searchParams.get("q") || ""}
+            value={form.q}
+            onChange={changeHandler.bind(null, "q")}
           />
         </div>
         <div>
@@ -34,7 +59,8 @@ export default function Search() {
             className="inline-block border-2 w-auto"
             name="limit"
             type="number"
-            defaultValue={searchParams.get("limit") || "10"}
+            value={form.limit}
+            onChange={changeHandler.bind(null, "limit")}
           />
         </div>
         <div>
@@ -43,7 +69,8 @@ export default function Search() {
             className="inline-block border-2 w-auto"
             name="minimumViews"
             type="number"
-            defaultValue={searchParams.get("minimumViews") || ""}
+            value={form.minimumViews}
+            onChange={changeHandler.bind(null, "minimumViews")}
           />
         </div>
         <button className="border-2">search</button>
