@@ -1,11 +1,9 @@
 "use server";
 
+import { convertDatetimeString, convertVideoLength } from "@/app/lib/convert";
+import { fetchAction } from "@/app/lib/nico/bulk";
 import { searchParamsSchema } from "@/app/lib/nico/schemas";
-import {
-  convertDatetimeString,
-  convertVideoLength,
-  search,
-} from "@/app/lib/nico/search";
+import { search } from "@/app/lib/nico/search";
 import { video } from "@/app/lib/nico/types";
 import Image from "next/image";
 
@@ -31,7 +29,12 @@ export async function SearchList({
   return <List list={list} />;
 }
 
-function List({ list }: { list: video[] }) {
+export async function BulkList() {
+  const list = await fetchAction();
+  return <List list={list} />;
+}
+
+export async function List({ list }: { list: video[] }) {
   return (
     <div className="grid grid-cols-1 gap-2">
       {list.map((item) => (
@@ -98,9 +101,7 @@ function Item({ item }: { item: video }) {
           </span>
         </div>
         <div>投稿日: {convertDatetimeString(item.startTime)}</div>
-        <div className="text-xs w-8/12 overflow-ellipsis overflow-hidden whitespace-nowrap">
-          TAG: {item.tags}
-        </div>
+        <div className="text-xs">TAG: {item.tags}</div>
       </div>
     </div>
   );

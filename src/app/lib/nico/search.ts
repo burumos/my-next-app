@@ -1,5 +1,6 @@
+"use server";
+
 import { video } from "./types";
-import dayjs from "dayjs";
 import { searchResponseSchema } from "./schemas";
 
 export async function search({
@@ -39,20 +40,4 @@ export async function search({
   }
 
   return parseResult.data.data;
-}
-
-export function convertVideoLength(time: number): string {
-  if (time <= 0) return "00:00";
-  const minutes = time / 60;
-  const seconds = time % 60;
-  return (
-    minutes.toFixed().padStart(2, "0") +
-    ":" +
-    seconds.toString().padStart(2, "0")
-  );
-}
-
-export function convertDatetimeString(datetime: string): string {
-  const date = dayjs(datetime);
-  return date.format("YYYY/MM/DD HH:mm");
 }

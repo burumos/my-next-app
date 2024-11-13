@@ -11,3 +11,21 @@ export type video = {
   mylistCounter: number;
 };
 
+export type SearchFormState = {
+  errors?: {
+    q?: string[];
+    limit?: string[];
+    minimumViews?: string[];
+  };
+  messages?: string | null;
+};
+
+export type SearchCondition = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  q: string;
+  limit: number;
+  minimumViews: number | null;
+  userId: number;
+};

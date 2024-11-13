@@ -20,4 +20,35 @@ model User {
   password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  nicoSearchConditions NicoSearchCondition[] @relation("nicoSearchConditions")
+  NicoVideos NicoVideo[]
+}
+
+model NicoSearchCondition {
+  id Int @id @default(autoincrement())
+  q String
+  limit Int
+  minimumViews Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId Int
+  user User @relation("nicoSearchConditions", fields: [userId], references: [id])
+}
+
+model NicoVideo {
+  userId Int
+  contentId String
+  title String
+  lengthSeconds Int
+  likeCounter Int
+  startTime DateTime
+  thumbnailUrl String
+  viewCounter Int
+  commentCounter Int
+  mylistCounter Int
+  tags String
+  createdAt DateTime @default(now())
+
+  @@unique(fields: [contentId, userId], name: "NicoVideo_PK")
+  user User @relation(fields: [userId], references: [id])
 }

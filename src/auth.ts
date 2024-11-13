@@ -34,3 +34,12 @@ export const { auth, signIn, signOut } = NextAuth({
     }),
   ],
 });
+
+export async function loginUser() {
+  const session = await auth();
+  const user = session?.user?.email ? await fetchUser(session.user.email) : null;
+  if (!user) {
+    throw new Error('fetch login user error');
+  }
+  return user;
+}

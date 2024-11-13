@@ -8,8 +8,12 @@ export default function NicoSearchPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   return (
-    <div>
-      <Search />
+    <div className="ms-3 mb-6 pe-3 max-h-[calc(100vh-70px)] overflow-auto">
+      <div className="flex justify-center mb-4">
+        <div className="max-w-[400px] w-full">
+          <Search />
+        </div>
+      </div>
       <Suspense fallback={<div>Loading...</div>}>
         <SearchList searchParams={searchParams} />
       </Suspense>

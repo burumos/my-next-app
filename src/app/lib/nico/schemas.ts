@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { toPositiveInt } from "../convert";
 
 export const searchResponseSchema = z.object({
   data: z.array(
@@ -18,12 +19,11 @@ export const searchResponseSchema = z.object({
 });
 
 export const searchParamsSchema = z.object({
-  q: z.string().trim(),
+  q: z.string().nullish(),
   limit: z.string().nullish().transform(toPositiveInt),
   minimumViews: z.string().nullish().transform(toPositiveInt),
 });
 
-function toPositiveInt(s: string | null | undefined): null | number {
-  const int = parseInt(s || "");
-  return isNaN(int) || int <= 0 ? null : int;
-}
+export const deleteParamsSchema = z.object({
+  id: z.string().transform(toPositiveInt),
+});
