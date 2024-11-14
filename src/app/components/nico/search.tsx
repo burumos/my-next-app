@@ -1,10 +1,9 @@
 "use client";
 
-import { saveConditionAction } from "@/app/lib/nico/seachCondition";
-import { SearchFormState } from "@/app/lib/nico/types";
+import { saveConditionAction } from "@/app/lib/nico/searchCondition";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useActionState, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 type formMode = "search" | "save";
 
@@ -27,12 +26,6 @@ export default function Search() {
 
     push(`${pathname}?${urlSearchParams.toString()}`);
   };
-
-  const initSaveState: SearchFormState = { messages: null };
-  const [saveActionState, saveAction] = useActionState(
-    saveConditionAction,
-    initSaveState
-  );
 
   useEffect(() => {
     setForm({
@@ -57,7 +50,7 @@ export default function Search() {
   };
 
   return (
-    <form action={mode === "save" ? saveAction : searchAction}>
+    <form action={mode === "save" ? saveConditionAction : searchAction}>
       <div className="grid grid-cols-1 gap-4">
         <div className="flex items-center">
           <label className="inline-block w-24 flex-shrink-0">word</label>

@@ -9,7 +9,6 @@ import { redirect } from "next/navigation";
 import { deleteCondition } from "./query";
 
 export async function saveConditionAction(
-  prevState: SearchFormState,
   formData: FormData
 ): Promise<SearchFormState> {
   const validatedFields = searchParamsSchema.safeParse({
