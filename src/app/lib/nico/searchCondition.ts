@@ -5,12 +5,11 @@ import prisma from "../db";
 import { deleteParamsSchema, searchParamsSchema } from "./schemas";
 import { SearchFormState } from "./types";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { deleteCondition } from "./query";
 
 export async function saveConditionAction(
   formData: FormData
-): Promise<SearchFormState> {
+): Promise<SearchFormState | undefined> {
   const validatedFields = searchParamsSchema.safeParse({
     q: formData.get("q"),
     limit: formData.get("limit"),
@@ -36,7 +35,6 @@ export async function saveConditionAction(
   });
 
   revalidatePath("nico/search");
-  redirect(`/nico/search?q=${q}&limit=${limit || ''}&minimumViews=${minimumViews || ''}`);
 }
 
 export async function deleteConditionAction(prevState: string | null, formData: FormData) {
