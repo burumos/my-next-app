@@ -79,6 +79,7 @@ export default function Search() {
             type="number"
             value={form.limit}
             onChange={changeHandler.bind(null, "limit")}
+            min="1"
           />
         </div>
         <div className="flex items-center">
@@ -89,6 +90,8 @@ export default function Search() {
             type="number"
             value={form.minimumViews}
             onChange={changeHandler.bind(null, "minimumViews")}
+            min="0"
+            step="100"
           />
         </div>
         <div className="flex justify-between flex-row-reverse">
