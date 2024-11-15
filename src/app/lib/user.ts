@@ -17,6 +17,7 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData
 ) {
+  formData.append('redirectTo', '/');
   try {
     await signIn("credentials", formData);
   } catch (error) {

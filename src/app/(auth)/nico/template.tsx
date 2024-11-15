@@ -6,11 +6,11 @@ export default async function Template({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-full flex box-content">
-      <div className="w-[200px] flex-shrink-0 px-2 border-r-2">
+    <div className="max-w-[1500px] w-full h-full mx-auto flex box-content">
+      <div className="min-w-[200px] w-1/6 flex-shrink-0 px-2 border-r-2">
         <Sidebar />
       </div>
-      <div className="w-[calc(100%-200px)]">
+      <div className="flex-grow w-full flex justify-center">
         {children}
       </div>
     </div>

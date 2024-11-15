@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Suspense } from "react";
 import { SearchConditions } from "./linkList";
+import { StaticLink } from "./staticLink";
 
 const staticLinks = [
   {
@@ -18,9 +18,7 @@ export default function Sidebar() {
     <ul className="grid grid-rows-1 gap-3">
       {staticLinks.map(({ path, name }) => (
         <li key={path}>
-          <Link href={path} className="text-blue-400">
-            {name}
-          </Link>
+          <StaticLink path={path} name={name} />
         </li>
       ))}
       <Suspense>
@@ -29,3 +27,4 @@ export default function Sidebar() {
     </ul>
   );
 }
+

@@ -15,7 +15,10 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "B",
+  title: {
+    template: "V.B | %s",
+    default: "V.B",
+  },
   description: "something app",
 };
 

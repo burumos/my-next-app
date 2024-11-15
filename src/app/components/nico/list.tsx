@@ -56,7 +56,7 @@ function Item({ item }: { item: video }) {
           <Image
             alt={item.title}
             src={item.thumbnailUrl}
-            width="150"
+            width="130"
             height="100"
           />
           <span className="absolute bottom-0 right-0 bg-white bg-opacity-70 text-black p-[2px]">

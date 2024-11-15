@@ -16,7 +16,7 @@ export default async function Template({
   return (
     <div>
       {session?.user && (
-        <div className="mx-3 flex flex-column justify-between">
+        <div className="max-w-[1500px] mx-auto px-3 flex flex-column justify-between">
           <Link href="/">
             <span className="material-symbols-outlined text-4xl">home</span>
           </Link>

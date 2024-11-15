@@ -2,6 +2,7 @@
 
 import { authenticate } from "@/app/lib/user";
 import { useActionState } from "react";
+import { SubmitButton } from "../button";
 
 export default function LoginForm() {
   const [errorMessage, formAction] = useActionState(authenticate, undefined);
@@ -16,7 +17,7 @@ export default function LoginForm() {
           <span className="w-20 inline-block">Password</span>
           <input name="password" type="password" className="border-2 px-1 flex-auto" required />
         </label>
-        <button className="border-2">Sign In</button>
+        <SubmitButton className="border-2">Sign In</SubmitButton>
         {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       </div>
     </form>

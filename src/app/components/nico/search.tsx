@@ -4,6 +4,7 @@ import { saveConditionAction } from "@/app/lib/nico/searchCondition";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
+import { SubmitButton } from "../button";
 
 type formMode = "search" | "save";
 
@@ -25,6 +26,14 @@ export default function Search() {
     }
 
     push(`${pathname}?${urlSearchParams.toString()}`);
+  };
+
+  const formAction = (formData: FormData) => {
+    if (mode === "save") {
+      saveConditionAction(formData);
+    } else {
+      searchAction(formData);
+    }
   };
 
   useEffect(() => {
@@ -50,7 +59,7 @@ export default function Search() {
   };
 
   return (
-    <form action={mode === "save" ? saveConditionAction : searchAction}>
+    <form action={formAction}>
       <div className="grid grid-cols-1 gap-4">
         <div className="flex items-center">
           <label className="inline-block w-24 flex-shrink-0">word</label>
@@ -83,18 +92,18 @@ export default function Search() {
           />
         </div>
         <div className="flex justify-between flex-row-reverse">
-          <button
+          <SubmitButton
             className="border-2 w-4/6"
             onClick={buttonHandler.bind(null, "search")}
           >
             search
-          </button>
-          <button
+          </SubmitButton>
+          <SubmitButton
             className="border-2 w-1/6"
             onClick={buttonHandler.bind(null, "save")}
           >
             save
-          </button>
+          </SubmitButton>
         </div>
       </div>
     </form>
