@@ -1,5 +1,6 @@
 "use client";
 
+import { urlQuery } from "@/app/lib/nico/function";
 import { deleteLoginUserCondition } from "@/app/lib/nico/query";
 import { SearchCondition } from "@/app/lib/nico/types";
 import Link from "next/link";
@@ -18,7 +19,7 @@ export function CondLink({ cond }: { cond: SearchCondition }) {
   if (!shown) return null;
 
   return (
-    <li key={cond.id}>
+    <div key={cond.id} className="flex items-center">
       <button
         type="button"
         className="border-2 px-1 me-1"
@@ -26,13 +27,9 @@ export function CondLink({ cond }: { cond: SearchCondition }) {
       >
         D
       </button>
-      <Link
-        href={`/nico/search?q=${cond.q}&limit=${
-          cond.limit || ""
-        }&minimumViews=${cond.minimumViews || ""}`}
-      >
+      <Link href={`/nico/search?${urlQuery(cond)}`} className="inline-block">
         {cond.q}/{cond.limit}/{cond.minimumViews}
       </Link>
-    </li>
+    </div>
   );
 }

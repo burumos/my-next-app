@@ -32,6 +32,7 @@ export default function Search() {
     if (mode === "save") {
       saveConditionAction(formData);
     } else {
+      formData.append("id", searchParams.get("id")?.toString() || '');
       searchAction(formData);
     }
   };

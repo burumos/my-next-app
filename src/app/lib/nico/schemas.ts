@@ -27,3 +27,10 @@ export const searchParamsSchema = z.object({
 export const deleteParamsSchema = z.object({
   id: z.string().transform(toPositiveInt),
 });
+
+export const updateParamsSchema = z.object({
+  id: z.coerce.number(),
+  q: z.string(),
+  limit: z.coerce.number(),
+  minimumViews: z.string().nullish().transform(toPositiveInt),
+});

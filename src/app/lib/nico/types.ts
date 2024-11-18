@@ -29,3 +29,12 @@ export type SearchCondition = {
   minimumViews: number | null;
   userId: number;
 };
+
+export type UpdateSearchCondition = Pick<
+  SearchCondition,
+  "q" | "limit" | "minimumViews"
+>;
+
+export type UpdateSearchConditionState = {
+  message?: string | undefined | null;
+};

@@ -2,10 +2,14 @@
 
 import { loginUser } from "@/auth";
 import prisma from "../db";
-import { deleteParamsSchema, searchParamsSchema } from "./schemas";
-import { SearchFormState } from "./types";
+import {
+  deleteParamsSchema,
+  searchParamsSchema,
+  updateParamsSchema,
+} from "./schemas";
+import { SearchFormState, UpdateSearchConditionState } from "./types";
 import { revalidatePath } from "next/cache";
-import { deleteCondition } from "./query";
+import { deleteCondition, updateLoginUserCondition } from "./query";
 
 export async function saveConditionAction(
   formData: FormData
@@ -37,13 +41,38 @@ export async function saveConditionAction(
   revalidatePath("nico/search");
 }
 
-export async function deleteConditionAction(prevState: string | null, formData: FormData) {
+export async function deleteConditionAction(
+  prevState: string | null,
+  formData: FormData
+) {
   const parsed = deleteParamsSchema.safeParse(formData);
   if (!parsed.success || !parsed.data.id) {
-    return 'Finish';
+    return "Finish";
   }
 
   const user = await loginUser();
   await deleteCondition(parsed.data.id, user.id);
-  return 'Complete';
+  return "Complete";
+}
+
+export async function updateConditionAction(
+  prevState: UpdateSearchConditionState | undefined,
+  formData: FormData
+) {
+  const parsed = updateParamsSchema.safeParse({
+    id: formData.get("id"),
+    q: formData.get("q"),
+    limit: formData.get("limit"),
+    minimumViews: formData.get("minimumViews"),
+  });
+  const id = parsed.data?.id;
+  if (!parsed.success || !id) {
+    console.log(parsed.error?.errors);
+    return { message: "Fail update", id } as UpdateSearchConditionState;
+  }
+
+  const data = parsed.data;
+  await updateLoginUserCondition(id, data);
+
+  revalidatePath("/nico/search");
 }

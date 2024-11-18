@@ -15,16 +15,16 @@ const staticLinks = [
 
 export default function Sidebar() {
   return (
-    <ul className="grid grid-rows-1 gap-3">
+    <div className="grid grid-rows-1 gap-3">
       {staticLinks.map(({ path, name }) => (
-        <li key={path}>
+        <div key={path}>
           <StaticLink path={path} name={name} />
-        </li>
+        </div>
       ))}
       <Suspense>
         <SearchConditions />
       </Suspense>
-    </ul>
+    </div>
   );
 }
 
