@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,41 +8,49 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
-  loginId String @unique
-  password String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  loginId              String                @unique
+  password             String
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
   nicoSearchConditions NicoSearchCondition[] @relation("nicoSearchConditions")
-  NicoVideos NicoVideo[]
+  NicoVideos           NicoVideo[]
 }
 
 model NicoSearchCondition {
-  id Int @id @default(autoincrement())
-  q String
-  limit Int
+  id           Int      @id @default(autoincrement())
+  q            String
+  limit        Int
   minimumViews Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId Int
-  user User @relation("nicoSearchConditions", fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       Int
+  user         User     @relation("nicoSearchConditions", fields: [userId], references: [id])
 }
 
 model NicoVideo {
-  userId Int
-  contentId String
-  title String
-  lengthSeconds Int
-  likeCounter Int
-  startTime DateTime
-  thumbnailUrl String
-  viewCounter Int
+  userId         Int
+  contentId      String
+  title          String
+  lengthSeconds  Int
+  likeCounter    Int
+  startTime      DateTime
+  thumbnailUrl   String
+  viewCounter    Int
   commentCounter Int
-  mylistCounter Int
-  tags String
-  createdAt DateTime @default(now())
+  mylistCounter  Int
+  tags           String
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id])
 
-  @@unique(fields: [contentId, userId], name: "NicoVideo_PK")
-  user User @relation(fields: [userId], references: [id])
+  @@unique([contentId, userId], name: "NicoVideo_PK")
+}
+
+model Memo {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
