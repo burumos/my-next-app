@@ -13,7 +13,7 @@ export default async function NicoSearchPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   return (
-    <div className="ms-3 mb-6 pe-3 h-[calc(100vh-70px)] w-full overflow-auto">
+    <div className="ms-3 mb-6 pe-3 h-[calc(100vh-70px)] w-full md:overflow-auto">
       <div className="flex justify-center mb-9">
         <div className="max-w-[400px] w-full">
           <Search />

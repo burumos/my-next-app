@@ -46,18 +46,19 @@ export async function List({ list }: { list: video[] }) {
 
 function Item({ item }: { item: video }) {
   return (
-    <div className="flex">
-      <div className="flex-shrink-0">
+    <div className="flex flex-col md:flex-row">
+      <div className="flex-shrink-0 flex justify-center ">
         <a
           href={`https://nico.ms/${item.contentId}`}
           target="_blank"
-          className="relative"
+          className="relative block w-full max-w-[300px]"
         >
           <Image
             alt={item.title}
             src={item.thumbnailUrl}
             width="130"
             height="100"
+            className="w-full min-w-130 md:w-auto"
           />
           <span className="absolute bottom-0 right-0 bg-white bg-opacity-70 text-black p-[2px]">
             {convertVideoLength(item.lengthSeconds)}
