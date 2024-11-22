@@ -58,7 +58,7 @@ function Item({ item }: { item: video }) {
             src={item.thumbnailUrl}
             width="130"
             height="100"
-            className="w-full min-w-130 md:w-auto"
+            className="block w-full min-w-[130px]"
           />
           <span className="absolute bottom-0 right-0 bg-white bg-opacity-70 text-black p-[2px]">
             {convertVideoLength(item.lengthSeconds)}
