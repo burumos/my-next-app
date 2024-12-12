@@ -22,4 +22,4 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## create User
 
-`npx src/script/createUser.ts <loginId> <password> (<name>)`
+`npx tsx src/script/createUser.ts <loginId> <password> (<name>)`
