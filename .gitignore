@@ -24,6 +24,7 @@
 .DS_Store
 *.pem
 *.code-workspace
+*.db
 
 # debug
 npm-debug.log*
