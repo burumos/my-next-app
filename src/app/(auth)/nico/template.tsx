@@ -1,3 +1,4 @@
+import ScrollTopButton from "@/app/components/nico/scrollTop";
 import Sidebar from "@/app/components/nico/sidebar";
 
 export default async function Template({
@@ -12,6 +13,7 @@ export default async function Template({
       </div>
       <div className="flex-grow w-full flex justify-center">
         {children}
+        <ScrollTopButton/>
       </div>
     </div>
   );
