@@ -19,7 +19,7 @@ export function CondLink({ cond }: { cond: SearchCondition }) {
   if (!shown) return null;
 
   return (
-    <div key={cond.id} className="flex items-center">
+    <div key={cond.id} className="flex items-center w-full overflow-x-hidden">
       <button
         type="button"
         className="border-2 px-1 me-1"
@@ -27,7 +27,11 @@ export function CondLink({ cond }: { cond: SearchCondition }) {
       >
         D
       </button>
-      <Link href={`/nico/search?${urlQuery(cond)}`} className="inline-block">
+      <Link
+        href={`/nico/search?${urlQuery(cond)}`}
+        className="truncate"
+        title={`${cond.q}/${cond.limit}/${cond.minimumViews}`}
+      >
         {cond.q}/{cond.limit}/{cond.minimumViews}
       </Link>
     </div>

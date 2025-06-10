@@ -9,7 +9,7 @@ export async function SearchConditions() {
       {conditions.map((cond) => (
         <CondLink cond={cond} key={cond.id} />
       ))}
-      <div className="mt-3">
+      <div className="mt-3 w-full">
         <OverwriteCondForm conditions={conditions} />
       </div>
     </>

@@ -15,9 +15,9 @@ const staticLinks = [
 
 export default function Sidebar() {
   return (
-    <div className="grid grid-rows-1 gap-3">
+    <div className="grid grid-rows-1 gap-3 w-full">
       {staticLinks.map(({ path, name }) => (
-        <div key={path}>
+        <div key={path} className="w-full">
           <StaticLink path={path} name={name} />
         </div>
       ))}
