@@ -12,6 +12,7 @@ npm install
 
 echo "Prismaのマイグレーションを実行中..."
 npx prisma migrate deploy
+npx prisma generate
 
 echo "Next.jsのビルド中..."
 npm run build
