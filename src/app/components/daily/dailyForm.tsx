@@ -18,7 +18,7 @@ export default function DailyForm({
   const [message, setMessage] = useState("");
 
   const formAction = async () => {
-    const { message, id } = await saveDaily(input, editingId);
+    const { message } = await saveDaily(input, editingId);
     setInput("");
     setMessage(message);
     setEditingId(null);

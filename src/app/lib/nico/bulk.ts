@@ -1,4 +1,4 @@
-"user server"
+"use server"
 
 import { loginUser } from "@/auth";
 import { deleteVideos, fetchLoginUserBulkVideos } from "./query";

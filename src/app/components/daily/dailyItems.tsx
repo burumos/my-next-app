@@ -59,44 +59,18 @@ function linkify(text: string): React.ReactNode {
 
 export default function DailyItems() {
   const [memos, setMemos] = useState<Memo[]>(dummyMemos);
-  const [input, setInput] = useState("");
   const [editingId, setEditingId] = useState<number | null>(null);
-
-  const handleAddMemo = () => {
-    if (!input.trim()) return;
-    if (editingId !== null) {
-      setMemos(
-        memos.map((memo) =>
-          memo.id === editingId ? { ...memo, text: input } : memo
-        )
-      );
-      setEditingId(null);
-      setInput("");
-      return;
-    }
-    setMemos([
-      {
-        id: Date.now(),
-        text: input,
-        date: new Date(),
-      },
-      ...memos,
-    ]);
-    setInput("");
-  };
 
   const handleDeleteMemo = (id: number) => {
     if (!confirm("本当に削除しますか？")) return;
     setMemos(memos.filter((memo) => memo.id !== id));
     if (editingId === id) {
       setEditingId(null);
-      setInput("");
     }
   };
 
-  const handleEditMemo = (id: number, text: string) => {
+  const handleEditMemo = (id: number) => {
     setEditingId(id);
-    setInput(text);
   };
 
   return (
@@ -122,7 +96,7 @@ function Item({
   handleDeleteMemo,
 }: {
   memo: Memo;
-  handleEditMemo: (id: number, text: string) => void;
+  handleEditMemo: (id: number) => void;
   handleDeleteMemo: (id: number) => void;
 }) {
   return (
@@ -137,7 +111,7 @@ function Item({
         </div>
         <div className="flex gap-2 justify-end">
           <button
-            onClick={() => handleEditMemo(memo.id, memo.text)}
+            onClick={() => handleEditMemo(memo.id)}
             className="bg-yellow-600 text-white px-2 py-1 rounded"
           >
             編集

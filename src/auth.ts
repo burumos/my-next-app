@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { fetchUser } from "./app/lib/user";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
+import { User as UserType } from "@prisma/client";
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -55,7 +56,7 @@ export async function fetchLoginUser() {
 }
 
 export async function withAuth(
-  handler: (user: any, req?: Request) => Promise<Response>,
+  handler: (user: UserType, req?: Request) => Promise<Response>,
   req?: Request
 ) {
   const user = await fetchLoginUser();
