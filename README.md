@@ -24,3 +24,25 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## create User
 
 `npx tsx src/script/createUser.ts <loginId> <password> (<name>)`
+
+## migration
+
+開発
+
+1. schema.prisma編集
+2. `npx prisma migrate dev --name {name}`
+
+本番
+
+1. `npx prisma migrate deploy`
+
+tips: commands
+- DBの状態確認: `npx prisma studio`
+- マイグレーションの一覧表示: `npx prisma migrate status`
+
+memo links
+- [API Routes | Next.js 日本語ドキュメント](https://nextjsjp.org/docs/pages/building-your-application/routing/api-routes)
+- [Getting Started: Fetching Data | Next.js](https://nextjs.org/docs/app/getting-started/fetching-data#with-suspense)
+- [TypeScript – SWR](https://swr.vercel.app/ja/docs/typescript)
+- [Defining schemas | Zod](https://zod.dev/api#numbers)
+

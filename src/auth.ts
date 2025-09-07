@@ -28,7 +28,7 @@ export const { auth, signIn, signOut } = NextAuth({
           if (passwordsMatch) return u;
         }
 
-        console.log('Invalid credentials');
+        console.log("Invalid credentials");
         return null;
       },
     }),
@@ -37,9 +37,30 @@ export const { auth, signIn, signOut } = NextAuth({
 
 export async function loginUser() {
   const session = await auth();
-  const user = session?.user?.email ? await fetchUser(session.user.email) : null;
+  const user = session?.user?.email
+    ? await fetchUser(session.user.email)
+    : null;
   if (!user) {
-    throw new Error('fetch login user error');
+    throw new Error("fetch login user error");
   }
   return user;
+}
+
+export async function fetchLoginUser() {
+  const session = await auth();
+  const user = session?.user?.email
+    ? await fetchUser(session.user.email)
+    : null;
+  return user;
+}
+
+export async function withAuth(
+  handler: (user: any, req?: Request) => Promise<Response>,
+  req?: Request
+) {
+  const user = await fetchLoginUser();
+  if (!user) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+  return handler(user, req);
 }

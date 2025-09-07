@@ -1,5 +1,6 @@
 import { auth, signOut } from "@/auth";
 import Link from "next/link";
+import HeaderAccordion from "./components/menu";
 
 async function signOutAction() {
   "use server";
@@ -17,10 +18,12 @@ export default async function Template({
     <div>
       {session?.user && (
         <div className="max-w-[1500px] mx-auto px-3 flex flex-column justify-between">
-          <Link href="/">
-            <span className="material-symbols-outlined text-4xl">home</span>
-          </Link>
-
+          <div className="flex gap-4">
+            <Link href="/">
+              <span className="material-symbols-outlined text-4xl">home</span>
+            </Link>
+            <HeaderAccordion />
+          </div>
           <form action={signOutAction}>
             <button>
               <span className="material-symbols-outlined text-4xl font-bold">
