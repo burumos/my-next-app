@@ -5,9 +5,11 @@ import DailyForm from "./dailyForm";
 import useSWR, { mutate } from "swr";
 import { DailyMemo as DailyMemoType } from "@prisma/client";
 import dayjs from "dayjs";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function DailyMemo() {
-  const [input, setInput] = useState("");
+  const initText = useParamText();
+  const [input, setInput] = useState(initText);
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const handleDeleteMemo = async (id: number) => {
@@ -56,6 +58,22 @@ export default function DailyMemo() {
     </main>
   );
 }
+
+const useParamText = (): string => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // 初回マウント時のみクエリパラメータを消す
+  React.useEffect(() => {
+    const paramTest = searchParams.get("t");
+    if (typeof paramTest === "string") {
+      router.replace("/daily");
+    }
+  }, [searchParams, router]);
+
+  const paramTest = searchParams.get("t");
+  return typeof paramTest === "string" ? paramTest : "";
+};
 
 type ResponseType = {
   data: {

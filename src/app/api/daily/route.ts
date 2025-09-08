@@ -12,16 +12,6 @@ export async function GET() {
   return new Response(JSON.stringify({ data: { dailyList } }), { status: 200 });
 }
 
-// export async function POST() {
-//   const user = await fetchLoginUser();
-//   if (!user) {
-//     return new Response("Unauthorized", { status: 401 });
-//   }
-//   const dailyList = await fetchDailyList(user.id);
-
-//   return new Response(JSON.stringify({ data: { dailyList } }), { status: 200 });
-// }
-
 export async function DELETE(request: Request) {
   return withAuth(async (user) => {
     const form = await request.json().catch(() => ({}));

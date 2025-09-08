@@ -51,7 +51,7 @@ export async function updateDaily(id: number, text: string) {
 export async function fetchDailyList(
   userId?: number,
   orderBy: { key: string; direction: "asc" | "desc" } = {
-    key: "id",
+    key: "createdAt",
     direction: "desc",
   }
 ): Promise<DailyMemo[]> {
