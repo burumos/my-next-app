@@ -102,7 +102,6 @@ function List({
   const memos = data.data.dailyList;
   const list = memos
     .slice()
-    .sort((a, b) => b.id - a.id)
     .map((daily) => (
       <Item
         key={daily.id}

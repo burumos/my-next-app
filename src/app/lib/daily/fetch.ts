@@ -50,7 +50,7 @@ export async function updateDaily(id: number, text: string) {
 
 export async function fetchDailyList(
   userId?: number,
-  orderBy: { key: string; direction: "asc" | "desc" } = {
+  orderBy: { key: keyof DailyMemo; direction: "asc" | "desc" } = {
     key: "createdAt",
     direction: "desc",
   }
@@ -60,14 +60,23 @@ export async function fetchDailyList(
     userId = user.id;
   }
 
-  return await prisma.dailyMemo.findMany({
+  // sqliteはdatetimeを持っておらずソートは期待通りに動かないため、JSでソートする
+  const list = await prisma.dailyMemo.findMany({
     where: {
       userId,
     },
-    orderBy: {
-      [orderBy.key]: orderBy.direction,
-    },
   });
+
+  const sortHandler = orderBy.direction === "asc"
+    ? (c: boolean) => c ? 1 : -1
+    : (c: boolean) => c ? -1 : 1;
+  list.sort((a, b) => {
+    const aValue = a[orderBy.key as keyof DailyMemo];
+    const bValue = b[orderBy.key as keyof DailyMemo];
+    return sortHandler(aValue > bValue);
+  });
+
+  return list;
 }
 
 export async function deleteDaily(id: number, userId: number) {
